@@ -27,12 +27,12 @@ namespace KpiMetricsSystem
         {
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var myinfo = new MyUserInfo() { FirstName = "Andrew", LastName = "Le" };
+            var myinfo = new MyUserInfo() { FirstName = "Andrew", LastName = "Le", Email = "Admin@mail.com" };
             string AdminRole = "Admin";
             string password = "password";
             string UserRole = "Staff";
 
-            //Create Role Test and User Test
+            //Create staff role
             RoleManager.Create(new IdentityRole(UserRole));
             
 
@@ -45,7 +45,6 @@ namespace KpiMetricsSystem
             //Create User=Admin with password=123456
             var user = new ApplicationUser();
             user.UserName = myinfo.FirstName;
-            user.HomeTown = "Kansas";
             user.MyUserInfo = myinfo;
             var adminresult = UserManager.Create(user, password);
 

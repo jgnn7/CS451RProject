@@ -79,12 +79,19 @@ namespace KpiMetricsSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                user.HomeTown = model.HomeTown;
-                user.MyUserInfo = new MyUserInfo() { FirstName = model.UserName };
+                var user = new ApplicationUser() 
+                { 
+                    UserName = model.UserName
+                    
+                };
+                var myInfo = new MyUserInfo() 
+                { 
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName, 
+                    Email = model.Email 
+                };
+                user.MyUserInfo = myInfo;
                 
-                // Store Gender as Claim
-                user.Claims.Add(new IdentityUserClaim() { ClaimType = ClaimTypes.Gender, ClaimValue = "Male" });
                     
                 var result = await UserManager.CreateAsync(user, model.Password);
                 
@@ -344,9 +351,6 @@ namespace KpiMetricsSystem.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add more custom claims here if you want. Eg HomeTown can be a claim for the User
-            var homeclaim = new Claim(ClaimTypes.Country, user.HomeTown);
-            identity.AddClaim(homeclaim);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 

@@ -11,9 +11,6 @@ namespace KpiMetricsSystem.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        // HomeTown will be stored in the same table as Users
-        public string HomeTown { get; set; }
-  
         // FirstName & LastName will be stored in a different table called MyUserInfo
         public virtual MyUserInfo MyUserInfo { get; set; }
     }
@@ -21,6 +18,7 @@ namespace KpiMetricsSystem.Models
     public class MyUserInfo
     {
         public int Id { get; set; }
+        public string Email{get;set;}
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }

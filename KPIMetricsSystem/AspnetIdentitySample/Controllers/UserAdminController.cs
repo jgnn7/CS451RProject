@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Threading;
@@ -71,10 +70,17 @@ namespace KpiMetricsSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var userinfo = new MyUserInfo()
+                {
+                    Email = userViewModel.Email,
+                    FirstName = userViewModel.FirstName,
+                    LastName = userViewModel.LastName
+                };
                 var user = new ApplicationUser();
                 user.UserName = userViewModel.UserName;
-                user.HomeTown = userViewModel.HomeTown;
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+                user.MyUserInfo = userinfo;
+                var adminresult =  UserManager.Create(user, userViewModel.Password);
 
                 //Add User Admin to Role Admin
                 if (adminresult.Succeeded)
@@ -139,7 +145,7 @@ namespace KpiMetricsSystem.Controllers
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Id", "Name");
             var user = await UserManager.FindByIdAsync(id);
             user.UserName = formuser.UserName;
-            user.HomeTown = formuser.HomeTown;
+            user.Email = formuser.Email;
             if (ModelState.IsValid)
             {
                 //Update the user details
