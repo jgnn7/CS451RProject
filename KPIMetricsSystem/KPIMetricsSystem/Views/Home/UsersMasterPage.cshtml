@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "UsersMasterPage";
+}
+
+<h2>UsersMasterPage</h2>
+
+@{
+    var listItems = new List<System.Web.UI.WebControls.ListItem>
+        {
+              new System.Web.UI.WebControls.ListItem { Text = "ITEM 1", Value = "0" },
+              new System.Web.UI.WebControls.ListItem { Text = "ITEM 2", Value = "1" },
+              new System.Web.UI.WebControls.ListItem { Text = "ITEM 3", Value = "2" }
+        };
+}
+@Html.DropDownList("KPIs", new SelectList(listItems, "Value", "Text"), new { onchange = "getAlldata()" })
+<hr />
+<div class="form-actions no-color">
+    <input type="submit" value="Submit" class="btn" />
+</div>
