@@ -75,5 +75,7 @@ namespace KpiMetricsSystem.Models
         [Required]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid Email address.")]
         public string Email { get; set; }
+
+        
     }
 }
