@@ -24,7 +24,7 @@ namespace KpiMetricsSystem
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer<MyDbContext>(new MyDbInitializer());
+            
         }
     }
 

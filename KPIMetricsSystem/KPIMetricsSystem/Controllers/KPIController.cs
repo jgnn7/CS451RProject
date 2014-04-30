@@ -10,55 +10,47 @@ using KpiMetricsSystem.Models;
 
 namespace AspnetIdentitySample.Controllers
 {
-    public class KPIController : Controller
+    public class kpiController : Controller
     {
         private MyDbContext db = new MyDbContext();
 
-        // GET: /KPI/
+        // GET: /kpi/
         public ActionResult Index()
         {
-            return View(db.KPI.ToList());
+            return View(db.KPIs.ToList());
         }
 
-        // GET: /KPI/Details/5
-        public ActionResult Details(int? id)
+        // GET: /kpi/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KPI kpi = db.KPI.Find(id);
+            KPI kpi = db.KPIs.Find(id);
             if (kpi == null)
             {
                 return HttpNotFound();
             }
             return View(kpi);
         }
-        //public ActionResult KPI_List()
-        //{
-        //    return KPI_List(db.KPI.ToList());
-        //}
 
-        //private ActionResult KPI_List(List<KPI> list)
-        //{
-        //    throw new NotImplementedException();
-        //}
-        // GET: /KPI/Create
+        // GET: /kpi/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /KPI/Create
+        // POST: /kpi/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="id,KPI_Name")] KPI kpi)
+        public ActionResult Create([Bind(Include="ID,KPIName")] KPI kpi)
         {
             if (ModelState.IsValid)
             {
-                db.KPI.Add(kpi);
+                db.KPIs.Add(kpi);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,14 +58,14 @@ namespace AspnetIdentitySample.Controllers
             return View(kpi);
         }
 
-        // GET: /KPI/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: /kpi/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KPI kpi = db.KPI.Find(id);
+            KPI kpi = db.KPIs.Find(id);
             if (kpi == null)
             {
                 return HttpNotFound();
@@ -81,12 +73,12 @@ namespace AspnetIdentitySample.Controllers
             return View(kpi);
         }
 
-        // POST: /KPI/Edit/5
+        // POST: /kpi/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="id,KPI_Name")] KPI kpi)
+        public ActionResult Edit([Bind(Include="ID,KPIName")] KPI kpi)
         {
             if (ModelState.IsValid)
             {
@@ -97,14 +89,14 @@ namespace AspnetIdentitySample.Controllers
             return View(kpi);
         }
 
-        // GET: /KPI/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: /kpi/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KPI kpi = db.KPI.Find(id);
+            KPI kpi = db.KPIs.Find(id);
             if (kpi == null)
             {
                 return HttpNotFound();
@@ -112,13 +104,13 @@ namespace AspnetIdentitySample.Controllers
             return View(kpi);
         }
 
-        // POST: /KPI/Delete/5
+        // POST: /kpi/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            KPI kpi = db.KPI.Find(id);
-            db.KPI.Remove(kpi);
+            KPI kpi = db.KPIs.Find(id);
+            db.KPIs.Remove(kpi);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

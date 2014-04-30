@@ -14,13 +14,13 @@
         <h4>KPI</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.KPI_Name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.KPIName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.KPI_Name)
-                @Html.ValidationMessageFor(model => model.KPI_Name)
+                @Html.EditorFor(model => model.KPIName)
+                @Html.ValidationMessageFor(model => model.KPIName)
             </div>
         </div>
 

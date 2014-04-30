@@ -52,15 +52,42 @@
             </div>
         </div>
         <h4>Select Role for User</h4>
-      
+
         @Html.DropDownList("RoleId","Select Role")
         <hr />
-        <div class="form-actions no-color">
-            <input type="submit" value="Create" class="btn" />
-        </div>
-    </fieldset>
-}
+        <h4>Select KPI</h4>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <table>
+                    <tr>
+                        @{
+                            int count = 0;
+                            List<KpiMetricsSystem.ViewModel.AssignedKPI> kpis = ViewBag.KPIs;
+                            foreach (var kpi in kpis)
+                            {
+                              
+                                @:<td>
+                                    <input type="checkbox"
+                                           name="Select KPI"
+                                           value="@kpi.KpiName"
+                                           @(Html.Raw(kpi.assigned ? "checked=\"checked\"": "")) />
+                                    @kpi.KpiId @: @kpi.KpiName
+                                    @:</td>
+                            }
+                            @:</tr>
+                        }
+                    </table>
+                </div>
+            </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Create" class="btn" />
+                            </div>
+                        </fieldset>
+
+                        }
+
+                        @section Scripts {
+                            @Scripts.Render("~/bundles/jqueryval")
+                        }

@@ -12,6 +12,7 @@ using System.Threading;
 using System.Net;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using KpiMetricsSystem.ViewModel;
 
 namespace KpiMetricsSystem.Controllers
 {
@@ -60,14 +61,29 @@ namespace KpiMetricsSystem.Controllers
         {
             //Get the list of Roles
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Id", "Name");
+            var User = new ApplicationUser();
+            User.KPIs = new List<KPI>();
+            PopulateAssignedKPIData(User);
+
             return View();
         }
 
         //
         // POST: /Users/Create
         [HttpPost]
-        public async Task<ActionResult>  Create(RegisterViewModel userViewModel, string RoleId)
+        public async Task<ActionResult>  Create(RegisterViewModel userViewModel, string RoleId, [Bind(Include="Name")] ApplicationUser kUser, string[] selectedKPIs)
         {
+          
+            if(selectedKPIs != null)
+            {
+                kUser.KPIs = new List<KPI>();
+                foreach(var kpi in selectedKPIs){
+                    var kpiToAdd = context.KPIs.Find(int.Parse(kpi));
+                    kUser.KPIs.Add(kpiToAdd);
+
+                }
+            }
+            
             if (ModelState.IsValid)
             {
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -81,7 +97,11 @@ namespace KpiMetricsSystem.Controllers
                 user.Email = userViewModel.Email;
                 user.MyUserInfo = userinfo;
                 var adminresult =  UserManager.Create(user, userViewModel.Password);
-
+         
+                context.Users.Add(user);
+                context.SaveChanges();
+              
+    
                 //Add User Admin to Role Admin
                 if (adminresult.Succeeded)
                 {
@@ -114,6 +134,7 @@ namespace KpiMetricsSystem.Controllers
             }
         }
 
+
         //
         // GET: /Users/Edit/1
         public async Task<ActionResult> Edit(string id)
@@ -131,7 +152,21 @@ namespace KpiMetricsSystem.Controllers
             }
             return View(user);
         }
-
+        private void PopulateAssignedKPIData(ApplicationUser user)
+        {
+            var allKPIs = context.KPIs;
+            var userKPI = new HashSet<string>(user.KPIs.Select(c => c.ID));
+            var viewModel = new List<AssignedKPI>();
+            foreach (var kpi in allKPIs)
+            {
+                viewModel.Add(new AssignedKPI{
+                    KpiId = kpi.ID,
+                    KpiName = kpi.KPIName,
+                    assigned = userKPI.Contains(kpi.ID)
+                });
+            }
+            ViewBag.KPIs = viewModel;
+        } 
         //
         // POST: /Users/Edit/5
         [HttpPost]

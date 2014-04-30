@@ -248,3 +248,5 @@ C:\Users\Jose\Documents\GitHub\CS451RProject\KPIMetricsSystem\KPIMetricsSystem\b
 C:\Users\Jose\Documents\GitHub\CS451RProject\KPIMetricsSystem\KPIMetricsSystem\bin\AspnetIdentitySample.dll.config
 C:\Users\Jose\Documents\GitHub\CS451RProject\KPIMetricsSystem\KPIMetricsSystem\obj\Debug\AspnetIdentitySample.Migrations.init.resources
 C:\Users\Jose\Documents\GitHub\CS451RProject\KPIMetricsSystem\KPIMetricsSystem\obj\Debug\KPIMetricsSystem.csproj.GenerateResource.Cache
+C:\Users\Jose\Documents\GitHub\CS451RProject\KPIMetricsSystem\KPIMetricsSystem\obj\Debug\AspnetIdentitySample.Migrations.init1.resources
+C:\Users\Jose\Documents\GitHub\CS451RProject\KPIMetricsSystem\KPIMetricsSystem\obj\Debug\KPIMetricsSystem.csprojResolveAssemblyReference.cache
